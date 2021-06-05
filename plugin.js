@@ -33,7 +33,8 @@
            dialog: 'btgrid',
            defaults: {
             //  colCount: 2,
-            // rowCount: 1
+            rowCount: 1
+            // colScheme: [6, 6]
           },
           // Before init.
            upcast: function(element) {
@@ -52,19 +53,20 @@
            data: function() {
              if (this.data.colCount && this.element.getChildCount() < 1) {
                var colCount = this.data.colCount;
+               var colScheme = this.data.colScheme;
                var rowCount = this.data.rowCount;
                var row = this.parts['btgrid'];
                for (var i= 1;i <= rowCount;i++) {
-                 this.createGrid(colCount, row, i);
+                 this.createGrid(colCount, row, i, colScheme);
                }
              }
            },
            //Helper functions.
            // Create grid
-           createGrid: function(colCount, row, rowNumber) {
+           createGrid: function(colCount, row, rowNumber, colScheme) {
              var content = '<div class="row row-' + rowNumber + '">';
              for (var i = 1; i <= colCount; i++) {
-               content = content + '<div class="col col-md-' + maxGridColumns/colCount + '">' +
+               content = content + '<div class="col col-md-' + colScheme[i-1] + '">' +
                                    '  <div class="content">' +
                                    '    <p>Col ' + i + ' content area</p>' +
                                    '  </div>' +
