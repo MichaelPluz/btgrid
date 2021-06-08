@@ -22,9 +22,16 @@
 
             var pass = true;
             var sum = 0;
+            var hasAuto = false;
 
             for (var i = 0; i < arrValues.length; i++) {
-                var val = parseInt(arrValues[i].trim());
+                var val = arrValues[i].trim();
+                if(val === 'auto')
+                {
+                    hasAuto = true;
+                    continue;
+                }
+                val = parseInt(val);
                 sum += val;
                 if (!(Number.isInteger(val) && val > 0)) {
                     pass = false;
@@ -35,7 +42,7 @@
             if (!pass) {
                 alert(lang.defineColSchemeError); // jshint ignore:line
             }
-            if (sum !== 12) {
+            if (! (sum === 12 || (hasAuto && sum <= 12))) {
                 alert(lang.defineColSchemeSumError); // jshint ignore:line
                 pass = false;
             }
@@ -125,11 +132,24 @@
                     },
                     {
                         id: 'colScheme',
-                        type: 'text',
-                        width: '30px',
-                        inputWidth: 30,
+                        type: 'select',
                         required: true,
                         label: lang.defineColScheme,
+                        items: [
+                            ['1', 1],
+                            ['2', 2],
+                            ['3', 3],
+                            ['4', 4],
+                            ['5', 5],
+                            ['6', 6],
+                            ['7', 7],
+                            ['8', 8],
+                            ['9', 9],
+                            ['10', 10],
+                            ['11', 11],
+                            ['12', 12],
+                            ['auto', 'auto'],
+                        ],
                         validate: validatorColScheme(),
                         setup: function (widget) {
                             if (widget.data.colScheme)
@@ -145,7 +165,7 @@
 
                         clearInputs: function () {
                             var div = this.getElement();
-                            var nodeList = div.find('input');
+                            var nodeList = div.find('select');
                             var pattern = nodeList.getItem(0);
                             pattern.hide();
                             for (var i = 1; i < nodeList.count(); i++) {
@@ -162,17 +182,9 @@
 
                             for (var i = 0; i < arrValues.length; i++) {
                                 var element = pattern.clone();
+                                element.$.innerHTML = pattern.$.innerHTML;
                                 element.setValue(arrValues[i]);
-                                element.setSize('width', this.inputWidth);
                                 element.appendTo(pattern.getParent());
-                                element.$.id = pattern.getAttribute('id') + "_" + i;
-                                element.on('keyup', function (event) {
-                                    event.sender.setValue(event.sender.getValue().replace(/[^0-9]/ig, ''));
-                                });
-                                element.on('focus', function (event) {
-                                    // event.sender - CKEDITOR.dom.element
-                                    event.sender.$.setSelectionRange(0, event.sender.$.value.length)
-                                });
                                 element.show();
                             }
                             if (arrValues.length > 0)
@@ -182,14 +194,14 @@
                             var arrValues = [];
 
                             var div = this.getElement();
-                            var nodeList = div.find('input');
+                            var nodeList = div.find('select');
                             for (var i = 1; i < nodeList.count(); i++) {
                                 arrValues.push(nodeList.getItem(i).getValue());
                             }
                             return arrValues;
                         },
                         onFocus: function (event) {
-                        return false;
+                            return false;
                         }
                     },
                     {

@@ -8,7 +8,6 @@ CKEDITOR.plugins.setLang('btgrid', 'ru', {
     createBtGrid: 'Создать сетку Bootstrap',
     editBtGrid: 'Редактировать сетку Bootstrap',
     numColsError: 'Выберите количество колонок, пожалуйста.',
-    defineColSchemeError: 'Схема колонок должна быть рядом чисел',
-    defineColSchemeSumError: 'Сумма чисел в схеме колонок должна быть ровно 12',
+    defineColSchemeSumError: 'Сумма чисел в схеме колонок должна быть ровно 12 или не превышать 12, когда выбрано auto.',
     numRowsError: 'Введите числовое значение для Количества рядов, пожалуйста.',
 });

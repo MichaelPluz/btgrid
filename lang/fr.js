@@ -8,7 +8,6 @@ CKEDITOR.plugins.setLang('btgrid', 'fr', {
     createBtGrid: 'Créer une grille Bootstrap',
     editBtGrid: 'Editer la grille Bootstrap',
     numColsError: 'Choisissez un nombre de colonnes',
-	defineColSchemeError: 'The column scheme must consist of numbers.',
-    defineColSchemeSumError: 'The column scheme number sum must be equal 12.',
+    defineColSchemeSumError: 'The column scheme number sum must be equal 12 or not exceed with auto.',
     numRowsError: 'Choisissez un nombre de lignes',
 });
